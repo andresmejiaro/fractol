@@ -6,7 +6,7 @@
 #    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/03/19 22:46:20 by amejia           ###   ########.fr        #
+#    Updated: 2023/03/24 23:54:26 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = fractol
 NAME_DEBUG = fractol_debug
 
 SRCS = complex_operations.c complex_operations2.c complex_polinomials.c main.c \
-
+	mandelbrot.c events.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -34,7 +34,8 @@ $(NAME): $(OBJS) libft/libft.a
 	libft/libft.a -o $@
 
 $(NAME_DEBUG): libft/libft.a $(SRCS)
-	$(CC) $(CFLAGS) -fdiagnostics-color=always -g $(SRCS) libft/libft.a -o $@
+	$(CC) $(CFLAGS) -fdiagnostics-color=always -g $(SRCS) -Lmlx -lmlx \
+	-framework OpenGL -framework AppKit libft/libft.a -o $@
 
 libft/libft.a:
 	make -C libft

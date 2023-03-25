@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_operations2.c                              :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 18:01:36 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 11:55:26 by amejia           ###   ########.fr       */
+/*   Created: 2023/01/28 20:57:50 by amejia            #+#    #+#             */
+/*   Updated: 2023/01/28 20:58:28 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-t_cplx	cplx_inv(t_cplx a)
+int	ft_lstsize(t_list *lst)
 {
-	t_cplx	result;
+	int	counter;
 
-	if (cplx_norm2(a) == 0)
-		return (a);
-	result = cplx_conj(a);
-	result.re = result.re / cplx_norm2(a);
-	result.im = result.im / cplx_norm2(a);
-	return (result);
+	if (lst == NULL)
+		return (0);
+	counter = 1;
+	while (lst->next != NULL)
+	{
+		if (lst->next != NULL)
+			lst = lst-> next;
+		counter++;
+	}
+	return (counter);
 }

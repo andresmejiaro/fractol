@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_operations2.c                              :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 18:01:36 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 11:55:26 by amejia           ###   ########.fr       */
+/*   Created: 2023/01/16 23:52:13 by amejia            #+#    #+#             */
+/*   Updated: 2023/01/17 13:13:51 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-t_cplx	cplx_inv(t_cplx a)
+void	ft_bzero(void *s, size_t n)
 {
-	t_cplx	result;
-
-	if (cplx_norm2(a) == 0)
-		return (a);
-	result = cplx_conj(a);
-	result.re = result.re / cplx_norm2(a);
-	result.im = result.im / cplx_norm2(a);
-	return (result);
+	ft_memset(s, 0, n);
 }

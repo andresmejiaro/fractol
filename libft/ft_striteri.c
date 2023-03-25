@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_operations2.c                              :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 18:01:36 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 11:55:26 by amejia           ###   ########.fr       */
+/*   Created: 2023/01/16 23:56:22 by amejia            #+#    #+#             */
+/*   Updated: 2023/01/17 23:38:58 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-t_cplx	cplx_inv(t_cplx a)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	t_cplx	result;
+	int		length_s;
+	int		counter;
 
-	if (cplx_norm2(a) == 0)
-		return (a);
-	result = cplx_conj(a);
-	result.re = result.re / cplx_norm2(a);
-	result.im = result.im / cplx_norm2(a);
-	return (result);
+	length_s = ft_strlen(s);
+	counter = 0;
+	while (counter < length_s)
+	{
+		(*f)(counter, s + counter);
+		counter++;
+	}
 }

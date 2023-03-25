@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_operations2.c                              :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 18:01:36 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 11:55:26 by amejia           ###   ########.fr       */
+/*   Created: 2023/01/16 23:54:29 by amejia            #+#    #+#             */
+/*   Updated: 2023/01/17 23:33:48 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-t_cplx	cplx_inv(t_cplx a)
-{
-	t_cplx	result;
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{	
+	unsigned int	counter;
 
-	if (cplx_norm2(a) == 0)
-		return (a);
-	result = cplx_conj(a);
-	result.re = result.re / cplx_norm2(a);
-	result.im = result.im / cplx_norm2(a);
-	return (result);
+	counter = 0;
+	while (((unsigned char *)s1)[counter] == ((unsigned char *)s2)[counter] \
+		&& counter < n)
+	{
+		counter++;
+		if (counter == n)
+			break ;
+	}
+	if (counter == n)
+		return (0);
+	else
+		return (((unsigned char *)s1)[counter] - \
+		((unsigned char *)s2)[counter]);
 }

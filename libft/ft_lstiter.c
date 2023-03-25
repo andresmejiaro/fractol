@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_operations2.c                              :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 18:01:36 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 11:55:26 by amejia           ###   ########.fr       */
+/*   Created: 2023/01/28 20:50:50 by amejia            #+#    #+#             */
+/*   Updated: 2023/01/28 20:56:38 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-t_cplx	cplx_inv(t_cplx a)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	t_cplx	result;
-
-	if (cplx_norm2(a) == 0)
-		return (a);
-	result = cplx_conj(a);
-	result.re = result.re / cplx_norm2(a);
-	result.im = result.im / cplx_norm2(a);
-	return (result);
+	if (lst == 0)
+		return ;
+	while (1)
+	{
+		(*f)(lst->content);
+		if (lst -> next == 0)
+			break ;
+		lst = lst->next;
+	}	
 }

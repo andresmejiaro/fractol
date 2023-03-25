@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_operations2.c                              :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 18:01:36 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 11:55:26 by amejia           ###   ########.fr       */
+/*   Created: 2023/01/16 23:57:15 by amejia            #+#    #+#             */
+/*   Updated: 2023/01/17 14:12:16 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-t_cplx	cplx_inv(t_cplx a)
+int	ft_strncmp(char *s1, char *s2, unsigned int n)
 {
-	t_cplx	result;
+	unsigned int	counter;
 
-	if (cplx_norm2(a) == 0)
-		return (a);
-	result = cplx_conj(a);
-	result.re = result.re / cplx_norm2(a);
-	result.im = result.im / cplx_norm2(a);
-	return (result);
+	counter = 0;
+	while (counter < n)
+	{
+		if (*(s1 + counter) != *(s2 + counter) || *(s1 + counter) == '\0' || \
+		*(s2 + counter) == '\0')
+			return (*((unsigned char *)(s1 + counter)) - \
+			*((unsigned char *)(s2 + counter)));
+		counter++;
+	}
+	return (0);
 }

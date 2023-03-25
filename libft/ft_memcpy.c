@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_operations2.c                              :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 18:01:36 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 11:55:26 by amejia           ###   ########.fr       */
+/*   Created: 2023/01/16 23:54:37 by amejia            #+#    #+#             */
+/*   Updated: 2023/01/17 13:54:12 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-t_cplx	cplx_inv(t_cplx a)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	t_cplx	result;
+	void			*to_return;
+	unsigned int	counter;
 
-	if (cplx_norm2(a) == 0)
-		return (a);
-	result = cplx_conj(a);
-	result.re = result.re / cplx_norm2(a);
-	result.im = result.im / cplx_norm2(a);
-	return (result);
+	if (dest == 0 && src == 0)
+	{
+		return (0);
+	}
+		to_return = dest;
+	counter = 0;
+	while (counter < n)
+	{
+		*((char *)(dest + counter)) = *((char *)(src + counter));
+		counter++;
+	}
+	return (to_return);
 }

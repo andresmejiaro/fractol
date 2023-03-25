@@ -6,65 +6,65 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 22:38:58 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/20 00:08:19 by amejia           ###   ########.fr       */
+/*   Updated: 2023/03/25 11:49:11 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	bag_init(t_bag bag)
 {
-	char *dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel /8));
-	*(unsigned int*)dst = color;
+	bag.center.re = 0;
+	bag.center.im = 0;
+	bag.zoom = 1;
+	bag.zoomJulia = 1;
+	bag.zoomCubic = 1;
+	bag.parameterJulia = bag.center;
+	bag.parameterCubic = bag.center;
+	bag.centerJulia = bag.center;
+	bag.centerCubic = bag.center;
+	bag.mlx = mlx_init();
+	bag.win = mlx_new_window(bag.mlx, 512, 512, "Mandelbrot");
+	bag.win2 = mlx_new_window(bag.mlx, 512, 512, "Julia");
+	bag.win3 = mlx_new_window(bag.mlx, 512, 512, "Cubic");
+	bag.img.img = mlx_new_image(bag.mlx, 512, 512);
+	bag.imgJulia.img = mlx_new_image(bag.mlx, 512, 512);
+	bag.imgCubic.img = mlx_new_image(bag.mlx, 512, 512);
+	bag.img.addr = mlx_get_data_addr(bag.img.img, &bag.img.bits_per_pixel, \
+		&bag.img.line_length, &bag.img.endian);
+	bag.imgJulia.addr = mlx_get_data_addr(bag.imgJulia.img, \
+		&bag.imgJulia.bits_per_pixel, &bag.imgJulia.line_length, \
+		&bag.imgJulia.endian);
+	bag.imgCubic.addr = mlx_get_data_addr(bag.imgCubic.img, \
+		&bag.imgCubic.bits_per_pixel, &bag.imgCubic.line_length, \
+		&bag.imgCubic.endian);
 }
 
-
-int main(void)
+void	windows_init(t_bag bag)
 {
-	void *mlx;
-	void *mlx_win;
-	t_data img;		
-	t_cplx nbs[4];
-	t_list *poly;
-	
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	img.img = mlx_new_image(mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	nbs[0].re = 0;
-	nbs[0].im = 0;
-	nbs[1].re = 1;
-	nbs[1].im = 0;
-	int x = 0;
-	int y = 0;
-	int n;
-	while (++x<1920)
-	{
-		y=0;
-		while (++y<1080)
-		{
-			nbs[2].re = (float)x/1080/75;
-			nbs[2].im = (float)y/1080/75;
-			poly = cplx_poly_create(2,nbs[2],nbs[1],nbs[0]);
-			n=cplx_point_orbit_cvg(poly,nbs[0]);
-			printf("%d\n",n);
-			my_mlx_pixel_put(&img, x, y, n);
-		}
-	
-	}
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	mandelbrot(bag.img, bag.zoom, bag.center);
+	julia(bag.imgJulia, bag.zoomJulia, bag.centerJulia, bag.parameterJulia);
+	cubic(bag.imgCubic, bag.zoomCubic, bag.centerCubic, bag.parameterCubic);
+	mlx_put_image_to_window(bag.mlx, bag.win, bag.img.img, 0, 0);
+	mlx_put_image_to_window(bag.mlx, bag.win2, bag.imgJulia.img, 0, 0);
+	mlx_put_image_to_window(bag.mlx, bag.win3, bag.imgCubic.img, 0, 0);
+	mlx_hook(bag.win, 2, 0, wclose, &bag);
+	mlx_hook(bag.win2, 2, 0, juliakey, &bag);
+	mlx_hook(bag.win3, 2, 0, cubickey, &bag);
+	mlx_hook(bag.win, 4, 0, mouse, &bag);
+	mlx_hook(bag.win2, 4, 0, mousejulia, &bag);
+	mlx_hook(bag.win3, 4, 0, mousecubic, &bag);
+	mlx_hook(bag.win, 17, 0L, red_cross, &bag);
+	mlx_hook(bag.win2, 17, 0L, red_cross, &bag);
+	mlx_hook(bag.win3, 17, 0L, red_cross, &bag);
+	mlx_loop(bag.mlx);
+}
 
+int	main(void)
+{
+	t_bag	bag;
+
+	bag_init(bag);
+	windows_init(bag);
+	return (0);
 }

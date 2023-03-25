@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_operations2.c                              :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 18:01:36 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 11:55:26 by amejia           ###   ########.fr       */
+/*   Created: 2023/01/16 23:56:35 by amejia            #+#    #+#             */
+/*   Updated: 2023/01/17 14:06:25 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-t_cplx	cplx_inv(t_cplx a)
+size_t	ft_strlcat(char *dest, char *src, size_t dstsize)
 {
-	t_cplx	result;
+	unsigned int	len_dest;
+	unsigned int	len_src;
 
-	if (cplx_norm2(a) == 0)
-		return (a);
-	result = cplx_conj(a);
-	result.re = result.re / cplx_norm2(a);
-	result.im = result.im / cplx_norm2(a);
-	return (result);
+	len_src = ft_strlen(src);
+	len_dest = ft_strlen(dest);
+	if (dstsize < len_dest)
+		return (len_src + dstsize);
+	while (*dest != '\0' )
+		dest++;
+	ft_strlcpy(dest, src, dstsize - len_dest);
+	return (len_src + len_dest);
 }
