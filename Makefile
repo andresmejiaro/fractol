@@ -6,7 +6,7 @@
 #    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/03/24 23:54:26 by amejia           ###   ########.fr        #
+#    Updated: 2023/03/25 17:06:16 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS = complex_operations.c complex_operations2.c complex_polinomials.c main.c \
 
 OBJS = ${SRCS:.c=.o}
 
-CFLAGS = -Wall -Werror -Wextra
+#CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
 

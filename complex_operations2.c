@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:01:36 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 11:55:26 by amejia           ###   ########.fr       */
+/*   Updated: 2023/03/25 15:57:33 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,14 @@ t_cplx	cplx_inv(t_cplx a)
 	result = cplx_conj(a);
 	result.re = result.re / cplx_norm2(a);
 	result.im = result.im / cplx_norm2(a);
+	return (result);
+}
+
+t_cplx cplx_init(float re, float im)
+{
+	t_cplx result;
+
+	result.re = re;
+	result.im = im;
 	return (result);
 }
