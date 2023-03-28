@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 22:38:58 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 17:40:22 by amejia           ###   ########.fr       */
+/*   Updated: 2023/03/28 17:37:26 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,39 @@ void	bag_init(t_bag *bag)
 	bag->center.re = 0;
 	bag->center.im = 0;
 	bag->zoom = 1;
-	bag->zoomJulia = 1;
-	bag->zoomCubic = 1;
-	bag->parameterJulia = bag->center;
-	bag->parameterCubic = bag->center;
-	bag->centerJulia = bag->center;
-	bag->centerCubic = bag->center;
+	bag->zoom_julia = 1;
+	bag->zoom_cubic = 1;
+	bag->parameter_julia = bag->center;
+	bag->parameter_cubic = bag->center;
+	bag->center_julia = bag->center;
+	bag->center_cubic = bag->center;
 	bag->mlx = mlx_init();
 	bag->win = mlx_new_window(bag->mlx, 512, 512, "Mandelbrot");
 	bag->win2 = mlx_new_window(bag->mlx, 512, 512, "Julia");
 	bag->win3 = mlx_new_window(bag->mlx, 512, 512, "Cubic");
 	bag->img.img = mlx_new_image(bag->mlx, 512, 512);
-	bag->imgJulia.img = mlx_new_image(bag->mlx, 512, 512);
-	bag->imgCubic.img = mlx_new_image(bag->mlx, 512, 512);
+	bag->img_julia.img = mlx_new_image(bag->mlx, 512, 512);
+	bag->img_cubic.img = mlx_new_image(bag->mlx, 512, 512);
 	bag->img.addr = mlx_get_data_addr(bag->img.img, &(bag->img.bits_per_pixel), \
 		&(bag->img.line_length), &(bag->img.endian));
-	bag->imgJulia.addr = mlx_get_data_addr(bag->imgJulia.img, \
-		&(bag->imgJulia.bits_per_pixel), &(bag->imgJulia.line_length), \
-		&(bag->imgJulia.endian));
-	bag->imgCubic.addr = mlx_get_data_addr(bag->imgCubic.img, \
-		&(bag->imgCubic.bits_per_pixel), &(bag->imgCubic.line_length), \
-		&(bag->imgCubic.endian));
+	bag->img_julia.addr = mlx_get_data_addr(bag->img_julia.img, \
+		&(bag->img_julia.bits_per_pixel), &(bag->img_julia.line_length), \
+		&(bag->img_julia.endian));
+	bag->img_cubic.addr = mlx_get_data_addr(bag->img_cubic.img, \
+		&(bag->img_cubic.bits_per_pixel), &(bag->img_cubic.line_length), \
+		&(bag->img_cubic.endian));
 }
 
 void	windows_init(t_bag *bag)
 {
 	mandelbrot(bag->img, bag->zoom, bag->center);
-	julia(bag->imgJulia, bag->zoomJulia, bag->centerJulia, bag->parameterJulia);
-	cubic(bag->imgCubic, bag->zoomCubic, bag->centerCubic, bag->parameterCubic);
+	julia(bag->img_julia, bag->zoom_julia, bag->center_julia, \
+		bag->parameter_julia);
+	cubic(bag->img_cubic, bag->zoom_cubic, bag->center_cubic, \
+		bag->parameter_cubic);
 	mlx_put_image_to_window(bag->mlx, bag->win, bag->img.img, 0, 0);
-	mlx_put_image_to_window(bag->mlx, bag->win2, bag->imgJulia.img, 0, 0);
-	mlx_put_image_to_window(bag->mlx, bag->win3, bag->imgCubic.img, 0, 0);
+	mlx_put_image_to_window(bag->mlx, bag->win2, bag->img_julia.img, 0, 0);
+	mlx_put_image_to_window(bag->mlx, bag->win3, bag->img_cubic.img, 0, 0);
 	mlx_hook(bag->win, 2, 0, wclose, bag);
 	mlx_hook(bag->win2, 2, 0, juliakey, bag);
 	mlx_hook(bag->win3, 2, 0, cubickey, bag);
