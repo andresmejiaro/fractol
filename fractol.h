@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:01:30 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/28 17:38:26 by amejia           ###   ########.fr       */
+/*   Updated: 2023/03/29 21:35:31 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,22 @@ typedef struct s_bag {
 	void	*win;
 	void	*win2;
 	void	*win3;
+	void	*win4;
 	t_data	img;
 	t_data	img_julia;
 	t_data	img_cubic;
+	t_data	img_newton;
 	t_cplx	center;
 	t_cplx	center_julia;
 	t_cplx	center_cubic;
+	t_cplx	center_newton;
 	t_cplx	parameter_julia;
 	t_cplx	parameter_cubic;
 	float	zoom;
 	float	zoom_julia;
 	float	zoom_cubic;
+	float	zoom_newton;
+	int		mode;
 }	t_bag;
 
 t_cplx	cplx_mult(t_cplx a, t_cplx b);
@@ -73,5 +78,13 @@ int		mousejulia(int keycode, int x, int y, t_bag *bag);
 int		juliakey(int keycode, t_bag *bag);
 int		mousecubic(int keycode, int x, int y, t_bag *bag);
 int		cubickey(int keycode, t_bag *bag);
+t_cplx	cplx_point_orbit_cvg2(t_list *poly, t_list *poly2, t_cplx nbr, \
+	float pres);
+void	newton(t_data img, float zoom, t_cplx center);
+int		mousenewton(int keycode, int x, int y, t_bag *bag);
+int		newtonkey(int keycode, t_bag *bag);
+void	error_parameter_menu(void);
+void	window_launcher(int argc, char **argv, t_bag *bag);
+void	windows_init(t_bag *bag);
 
 #endif

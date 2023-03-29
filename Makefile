@@ -6,7 +6,7 @@
 #    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/03/28 17:24:07 by amejia           ###   ########.fr        #
+#    Updated: 2023/03/29 19:54:53 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,11 @@ NAME = fractol
 NAME_DEBUG = fractol_debug
 
 SRCS = complex_operations.c complex_operations2.c complex_polinomials.c main.c \
-	mandelbrot.c events.c events2.c
+	mandelbrot.c events.c events2.c events3.c newton.c menu.c
 
 OBJS = ${SRCS:.c=.o}
 
-#CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
 

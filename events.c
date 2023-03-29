@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 23:48:23 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/28 17:36:35 by amejia           ###   ########.fr       */
+/*   Updated: 2023/03/29 21:22:14 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ int	mouse(int keycode, int x, int y, t_bag *bag)
 	x2[1] = y;
 	coords.re = (4 * (x - 256)) / (bag->zoom * 512) - bag->center.re;
 	coords.im = (4 * (y - 256)) / (bag->zoom * 512) - bag->center.im;
-	if (keycode == 1)
+	if (keycode == 1 && bag->mode == 4)
 	{
 		bag->parameter_julia = coords;
 		julia(bag->img_julia, bag->zoom_julia, bag->center_julia, \
 			bag->parameter_julia);
 		mlx_put_image_to_window(bag->mlx, bag->win2, bag->img_julia.img, 0, 0);
 	}
-	else if (keycode == 2)
+	else if (keycode == 2 && bag->mode == 4)
 	{
 		bag->parameter_cubic = coords;
 		cubic(bag->img_cubic, bag->zoom_cubic, bag->center_cubic, \

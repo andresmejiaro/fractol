@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:18:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/25 12:00:52 by amejia           ###   ########.fr       */
+/*   Updated: 2023/03/29 21:53:40 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ float	cplx_point_orbit_cvg(t_list *poly, t_cplx nbr, float pres)
 	while (ct < (int)(40 * log(1 + pres)))
 	{
 		nbr = cplx_poly_eval(poly, nbr);
-		if (cplx_norm2(nbr) > 2)
+		if (cplx_norm2(nbr) > 4)
 		{
 			to_return = (float)ct + log(cplx_norm2(nbr));
 			return (ct);
@@ -70,4 +70,19 @@ float	cplx_point_orbit_cvg(t_list *poly, t_cplx nbr, float pres)
 		ct++;
 	}
 	return (0);
+}
+
+t_cplx	cplx_point_orbit_cvg2(t_list *poly, t_list *poly2, t_cplx nbr, \
+	float pres)
+{
+	int		ct;
+
+	ct = 1;
+	while (ct < (int)(40 * log(1 + pres)))
+	{
+		nbr = cplx_mult(cplx_poly_eval(poly, nbr), \
+			cplx_inv(cplx_poly_eval(poly2, nbr)));
+		ct++;
+	}
+	return (nbr);
 }

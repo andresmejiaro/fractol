@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:23:04 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/28 17:35:10 by amejia           ###   ########.fr       */
+/*   Updated: 2023/03/29 21:53:57 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,32 @@ int	cubickey(int keycode, t_bag *bag)
 		cubic(bag->img_cubic, bag->zoom_cubic, bag->center_cubic, \
 			bag->parameter_cubic);
 	mlx_put_image_to_window(bag->mlx, bag->win3, bag->img_cubic.img, 0, 0);
+	return (0);
+}
+
+int	newtonkey(int keycode, t_bag *bag)
+{
+	if (keycode == 53)
+	{
+		mlx_destroy_window(bag->mlx, bag->win4);
+		exit(0);
+	}
+	else if (keycode == 126)
+		bag->center_newton.im += 1 / bag->zoom_newton;
+	else if (keycode == 125)
+		bag->center_newton.im -= 1 / bag->zoom_newton;
+	else if (keycode == 123)
+		bag->center_newton.re += 1 / bag->zoom_newton;
+	else if (keycode == 124)
+		bag->center_newton.re -= 1 / bag->zoom_newton;
+	else if (keycode == 36)
+	{
+		bag->center_newton.re = 0;
+		bag->center_newton.im = 0;
+		bag->zoom_newton = 1;
+	}	
+	if ((keycode >= 123 && keycode <= 126) || keycode == 36)
+		newton(bag->img_newton, bag->zoom_newton, bag->center_newton);
+	mlx_put_image_to_window(bag->mlx, bag->win4, bag->img_newton.img, 0, 0);
 	return (0);
 }
